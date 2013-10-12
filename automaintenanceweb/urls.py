@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from django.views.generic import TemplateView
+from automaintenanceweb.openautotracker.views import LandingPage
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -25,7 +25,6 @@ urlpatterns = patterns('',
     url(r'^licenses/', include('licenses.urls')),
     url(r'^account/', include('account.urls')),
 
-    url(r'^$', TemplateView.as_view(template_name="landing.html"),
-        name='landing'),
+    url(r'^$', LandingPage.as_view(), name='landing'),
 
 )
