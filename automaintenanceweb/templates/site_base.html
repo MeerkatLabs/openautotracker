@@ -1,107 +1,146 @@
 <!DOCTYPE HTML>
 {% load staticfiles %}
 <html>
-	<head>
-		<title>{%block title %}Auto Maintenance{% endblock %}</title>
+<head>
+    <title>{% block title %}Open Auto Tracker{% endblock %}</title>
 
-		<link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet"
+          media="screen">
 
-		{% block extrahead %}
-		{% endblock %}
+    {% block extrahead %}
+    {% endblock %}
 
-	</head>
+</head>
 
-	<body>
-		
-		<div class="container">
+<body>
 
-		<div class="navbar">
-			<div class="navbar-inner">
-				<a class="brand" href="{% url 'auto_maintenance_car_list' %}">{% block brand %}Automaintenance{% endblock %}</a>
+<div class="container">
 
-				{% if user.is_authenticated %}
-				<ul class="nav" role="navigation">
-					<li class="dropdown">
-						<a id="car_drop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Cars <b class="caret"></b></a>
-						<ul class="dropdown-menu" role="menu" aria-labelledby="car_drop">
-							{% for car in car_list %}
-							<li>
-								<a href="{{ car.get_absolute_url }}">{{ car }}</a>
-							</li>
-							{% endfor %}
-							<li role="presentation" class="divider"></li>
-							<li role="presentation">
-								<a role="menuitem" tabindex="-1" href="{% url 'auto_maintenance_add_car' %}">Add Car</a>
-							</li>
-						</ul>
-					</li>
-					
-					{% block submenus %}
-					{% endblock %}
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="{% url 'auto_maintenance_car_list' %}">
+                {% block brand %}Open Auto Tracker{% endblock %}</a>
 
-				</ul>
-				{% endif %}
+            {% if user.is_authenticated %}
+                <ul class="nav" role="navigation">
+                    <li class="dropdown">
+                        <a id="car_drop" href="#" role="button"
+                           class="dropdown-toggle" data-toggle="dropdown">Cars
+                            <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu"
+                            aria-labelledby="car_drop">
+                            {% for car in car_list %}
+                                <li>
+                                    <a href="{{ car.get_absolute_url }}">{{ car }}</a>
+                                </li>
+                            {% endfor %}
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1"
+                                   href="{% url 'auto_maintenance_add_car' %}">Add
+                                    Car</a>
+                            </li>
+                        </ul>
+                    </li>
 
-				{% if user.is_authenticated %}
-				<ul class="nav pull-right">
-					<li id="fat-menu" class="dropdown">
-						<a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">
-                            {% if user.first_name %}{{ user.first_name }}{% else %}{{user.username}}{% endif %}
+                    {% block submenus %}
+                    {% endblock %}
+
+                </ul>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                <ul class="nav pull-right">
+                    <li id="fat-menu" class="dropdown">
+                        <a href="#" id="drop3" role="button"
+                           class="dropdown-toggle" data-toggle="dropdown">
+                            {% if user.first_name %}
+                                {{ user.first_name }}{% else %}
+                                {{ user.username }}{% endif %}
                             <b class="caret"></b>
                         </a>
-						<ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
-							<li role="presentation">
-								<a role="menuitem" tabindex="-1" href="{% url 'account_settings' %}">Edit Profile</a>
-							</li>
-							{% if user.is_staff %}
-							<li role="presentation" class="divider"></li>
-							<li role="presentation">
-								<a role="menuitem" tabindex="-1" href="/admin/">Admin</a>
-							</li>
-							{% endif %}
-							<li role="presentation" class="divider"></li>
-							<li role="presentation">
-								<a role="menuitem" tabindex="-1" href="{% url 'account_logout' %}">Logout</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-				{% else %}
-				<ul class="nav pull-right">
-					<li>
-						<a href="{% url 'account_login' %}">Login</a>
-					</li>
-				</ul>
-				{% endif %}
+                        <ul class="dropdown-menu" role="menu"
+                            aria-labelledby="drop3">
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1"
+                                   href="{% url 'account_settings' %}">Edit
+                                    Profile</a>
+                            </li>
+                            {% if user.is_staff %}
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1"
+                                       href="/admin/">Admin</a>
+                                </li>
+                            {% endif %}
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1"
+                                   href="{% url 'account_logout' %}">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            {% else %}
+                <ul class="nav pull-right">
+                    <li>
+                        <a href="{% url 'account_login' %}">Login</a>
+                    </li>
+                </ul>
+            {% endif %}
 
-			</div>
-		</div>
+        </div>
+    </div>
 
-		<div class="row">
-			<div class="span12">
-				{% block content %}
-                       {% block body %}
-                       {% endblock %}
-				{% endblock %}
-			</div>
-		</div>
+    <div class="row">
+        <div class="span12">
+            {% block content %}
+                {% block body %}
+                {% endblock %}
+            {% endblock %}
+        </div>
+    </div>
 
-        <hr />
+    <hr/>
 
-        <footer class="footer">
-            <div class="container">
-                <p>&copy; 2013 Meerkat Labs LLC.</p>
-                <p>Car Tracker is released under AGPL.  See <a href="{%  url 'license_list' %}">Licenses</a> for more information.</p>
-            </div>
-        </footer>
-		
-	</div>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2013 <a href="http://meerkatlabsllc.com">Meerkat Labs
+                LLC.</a></p>
 
-		<script src="{% static "js/jquery.js" %}"></script>
-		<script src="{% static "js/bootstrap.min.js" %}"></script>
-		
-		{% block extrascript %}
-		{% endblock %}
+            <p>Open AutoTracker is released under
+                <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL</a>.
+                See <a href="{% url 'license_list' %}">Licenses</a> for more
+                information.
+            </p>
+        </div>
+    </footer>
 
-	</body>
+</div>
+
+<script src="{% static "js/jquery.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+
+{% block extrascript %}
+{% endblock %}
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-26282049-6', 'openautotracker.com');
+    ga('send', 'pageview');
+
+</script>
+
+</body>
 </html>
