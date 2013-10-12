@@ -1,24 +1,44 @@
 {% extends "automaintenance/base.html" %}
 
+{% load staticfiles %}
+
 {% block body %}
 
 <div class="page-header">
-	<h1>Cars</h1>
+    <h1>Welcome<small> My Cars</small></h1>
 </div>
-
 
 <div class="row">
-	<div class="span12">
-        {% if car_list %}
-	  <ul>
-	   {% for car in car_list %}
-	     <li><a href="{{ car.get_absolute_url }}">{{ car.name }}</a></li>
-	   {% endfor %}
-	  </ul>
-    {% else %}
-        <p>You don't have any cars defined yet.  Please <a href="{% url 'auto_maintenance_add_car' %}">Add a new one</a></p>
-    {% endif %}
-  </div>
+  {% for car in car_list %}
+
+      <div class="span3">
+
+        <div class="well well-small" style="height: 125px">
+            <p class="text-center"><a href="{{ car.get_absolute_url }}"><img src="{% static  "img/smallauto.png" %}"></a></p>
+
+            <p class="text-center"><strong>{{ car.name }}</strong></p>
+            <p class="text-center">{{ car.car_type }}</p>
+        </div>
+
+      </div>
+
+  {% endfor %}
+
+  {% if car_list|length < max_car_count %}
+
+      <div class="span3">
+
+          <div class="well well-small" style="height: 125px">
+              <p class="text-center">
+                  <a href="{% url 'auto_maintenance_add_car' %}"><img src="{% static  "img/addcar.png" %}"></a></p>
+
+              <p class="text-center"><strong>Add Car</strong></p>
+          </div>
+
+      </div>
+
+  {% endif %}
 </div>
+
 
 {% endblock %}
