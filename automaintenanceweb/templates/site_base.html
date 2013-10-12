@@ -33,12 +33,14 @@
                                     <a href="{{ car.get_absolute_url }}">{{ car }}</a>
                                 </li>
                             {% endfor %}
-                            <li role="presentation" class="divider"></li>
-                            <li role="presentation">
-                                <a role="menuitem" tabindex="-1"
-                                   href="{% url 'auto_maintenance_add_car' %}">Add
-                                    Car</a>
-                            </li>
+                            {% if car_list|length < max_car_count %}
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1"
+                                       href="{% url 'auto_maintenance_add_car' %}">Add
+                                        Car</a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </li>
 

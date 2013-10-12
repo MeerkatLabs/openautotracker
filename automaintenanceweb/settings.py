@@ -185,7 +185,9 @@ AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',
 ## Override the context processors
 TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
     "automaintenance.context_processors.car_list",
-    "account.context_processors.account",)
+    "account.context_processors.account",
+    "automaintenanceweb.openautotracker.context_processors.max_car_count",
+)
 
 LICENSE_ADMIN = True
 
