@@ -42,7 +42,9 @@
 
 </div>
 
-{% include "automaintenance/maintenance_list_include.html" with type="Gasoline" hide_edit=True %}
+    {% block maintenance_list %}
+        {% include "automaintenance/maintenance_list_include.html" with type="Gasoline" hide_edit=True %}
+    {% endblock %}
 
 {% endblock %}
 

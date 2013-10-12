@@ -6,6 +6,10 @@
 Category vs. Price
 {%endblock%}
 
+{% block maintenance_list %}
+    {% include "automaintenance/maintenance_list_include.html" with type="Category" hide_edit=True %}
+{% endblock %}
+
 {% block extrascript %}
 	
 	<script type="text/javascript" src="{% static "js/jquery.flot.js" %}"></script>
