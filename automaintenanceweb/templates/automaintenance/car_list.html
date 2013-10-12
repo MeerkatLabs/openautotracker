@@ -1,0 +1,24 @@
+{% extends "automaintenance/base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+	<h1>Cars</h1>
+</div>
+
+
+<div class="row">
+	<div class="span12">
+        {% if car_list %}
+	  <ul>
+	   {% for car in car_list %}
+	     <li><a href="{{ car.get_absolute_url }}">{{ car.name }}</a></li>
+	   {% endfor %}
+	  </ul>
+    {% else %}
+        <p>You don't have any cars defined yet.  Please <a href="{% url 'auto_maintenance_add_car' %}">Add a new one</a></p>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

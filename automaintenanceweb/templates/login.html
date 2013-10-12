@@ -1,0 +1,46 @@
+{% extends "site_base.html" %}
+{% load url from future %}
+
+{% block content %}
+
+<div class="page-header">
+	<h2>Login</h2>
+</div>
+
+{% if form.errors %}
+<div class="alert alert-error">
+	<p>
+	<strong>ERROR!</strong> Your username and password didn't match. Please try again.
+	</p>
+</div>
+{% endif %}
+
+<div class="row">
+
+	<div class="span4 offset4">
+
+		<form class="form-inline" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+			<input type="hidden" name="next" value="{{ next }}" />
+			{% csrf_token %}
+			<div class="control-group">
+				<label class="control-label" for="inputEmail">{{ form.username.label }}</label>
+				<div class="controls">
+					{{ form.username }}
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="inputPassword">{{ form.password.label }}</label>
+				<div class="controls">
+					{{ form.password }}
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary">
+				Sign in
+			</button>
+		</form>
+
+	</div>
+
+</div>
+
+{% endblock %}

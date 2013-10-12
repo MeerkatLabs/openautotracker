@@ -1,0 +1,29 @@
+{% extends "site_base.html" %}
+
+{% block content %}
+
+    <h1>Welcome to Car Tracker</h1>
+
+    <h2>Get Started</h2>
+    <p>
+        <a href="{%  url 'account_signup' %}">Create a new account</a>, or sign in with your Google+ account information.
+        Already have an account, <a href="{% url 'account_login' %}">sign in here</a>.
+    </p>
+
+    <h2>What we do?</h2>
+    <p>
+        Collect and store all car maintenance, driving patterns, and trips made
+        with each of your vehicles.  This allows you to have up-to-date records
+        on any changes that your car is going through.  It also shows you how
+        much you are spending on your car in order to make car maintenance
+        decisions in the future.
+    </p>
+
+    <h2>Why?</h2>
+    <p>
+        Maintaining records on your car will help you to determine the maintenance
+        needs of your cars in the future.  It will also help you to see fuel
+        patterns and give owners an insight into total cost of ownership.
+    </p>
+
+{% endblock %}

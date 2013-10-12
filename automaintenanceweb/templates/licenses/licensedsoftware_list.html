@@ -1,0 +1,73 @@
+{% extends "site_base.html" %}
+
+{% block content %}
+
+    <section id="typography">
+        <div class="page-header">
+            <h1>Licenses</h1>
+        </div>
+
+        {% for software in software_list %}
+            <h2>{{ software.name }}</h2>
+
+            <dl class="dl-horizontal">
+                <dt>
+                    Description
+                </dt>
+                <dd>
+                    {% if software.description %}
+                    {{ software.description }}
+                    {% else %}
+                    None
+                    {% endif %}
+                </dd>
+
+                <dt>
+                    License
+                </dt>
+                <dd>
+                    {% if software.license %}
+                    <a href="{{ software.license.url }}">{{ software.license.name }}</a>
+                    {% else %}
+                    None
+                    {% endif %}
+                </dd>
+
+                <dt>
+                    Version
+                </dt>
+                <dd>
+                    {% if software.version %}
+                    {{ software.version }}
+                    {% else %}
+                    Unknown
+                    {% endif %}
+                </dd>
+
+                <dt>
+                    Website
+                </dt>
+                <dd>
+                    {% if software.website_url %}
+                    <a href="{{ software.website_url }}">{{ software.website_url }}</a>
+                    {% else %}
+                    None
+                    {% endif %}
+                </dd>
+
+                <dt>
+                    Source
+                </dt>
+                <dd>
+                    {% if software.source_url %}
+                    <a href="{{ software.source_url }}">{{ software.source_url }}</a>
+                    {% else %}
+                    None
+                    {% endif %}
+                </dd>
+            </dl>
+        {% endfor %}
+
+    </section>
+
+{% endblock %}

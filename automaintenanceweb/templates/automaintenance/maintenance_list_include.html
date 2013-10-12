@@ -1,0 +1,66 @@
+{% if maintenance_list %}
+
+<div class="page-header">
+	<h2>{{ type|default:"Maintenance" }} Records</h2>
+</div>
+
+<div class="row">
+
+    <div class="span12">
+    	<table class="table table-condensed">
+    		<thead>
+	    		<tr>
+	    			<th>Date</th>
+	    			<th>Type</th>
+	    			<th>{{car.get_distance_table_header}}</th>
+	    			<th>{{car.get_distance_per_fuel}}</th>
+	    			<th>Cost</th>
+	    			{% if not hide_edit %}
+	    			<th>&nbsp;</th>
+	    			{% endif %}
+	    		</tr>
+    		</thead>
+    		<tbody>
+    			{% for record in maintenance_list %}
+    			<tr>
+    				<td>{{record.date}}</td>
+    				<td>{{record.human_readable_type}}</td>
+    				<td>{{record.mileage}}</td>
+    				<td>{{record.efficency|floatformat:3 }}</td>
+    				<td>{{car.get_currency_display}}{{record.total_cost|floatformat:2 }}</td>
+    				{% if not hide_edit %}
+    				<td>
+    					<a class="btn btn-mini" href="{{ record.get_absolute_url }}" data-toggle="tooltip" title="View Record"><i class="icon-eye-open"></i></a>
+						<a class="btn btn-mini btn-info" href="{{ record.get_edit_url }}" data-toggle="tooltip" title="Edit Record"><i class="icon-edit icon-white"></i></a>
+						<a class="btn btn-mini btn-danger" href="{{ record.get_delete_url }}" data-toggle="tooltip" title="Delete Record"><i class="icon-remove icon-white"></i></a>
+    				</td>
+    				{% endif %}
+    			</tr>
+    			{% endfor %}
+    		</tbody>
+    	</table>
+
+    </div>
+
+    {% if maintenance_list.paginator %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if maintenance_list.has_previous %}
+                <a href="?page={{ maintenance_list.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ maintenance_list.number }} of {{ maintenance_list.paginator.num_pages }}.
+            </span>
+
+            {% if maintenance_list.has_next %}
+                <a href="?page={{ maintenance_list.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+
+    {% endif %}
+    
+</div>
+{% endif %}

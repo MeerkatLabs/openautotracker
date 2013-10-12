@@ -1,0 +1,67 @@
+{% extends "automaintenance/base.html" %}
+
+
+{% block extrahead %}
+<link href="{{date_picker_css_url}}" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+	<h1>{{ car }} <small>{% block report_type %}{{command}} Trip{%endblock%}</small></h1>
+</div>
+
+<div class="row">
+	<div class="span10 offset1">
+		<form method="post" action="." class="form-horizontal">
+			{% csrf_token %}
+
+			{% include "automaintenance/form_template.html" with field=form.name %}
+
+			<fieldset>
+				<legend>
+					When
+				</legend>
+				
+				{% include "automaintenance/date_form_template.html" with field=form.start %}
+				
+				{% include "automaintenance/date_form_template.html" with field=form.end %}
+
+			</fieldset>
+
+			<fieldset>
+				<legend>
+					Optional
+				</legend>
+				
+				{% include "automaintenance/form_template.html" with field=form.description %}
+
+			</fieldset>
+			
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary">
+					{{command}}
+				</button>
+				<a class="btn" href="{{ car.get_absolute_url }}">
+					Cancel
+				</a>
+			</div>
+		</form>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block extrascript %}
+	<script type="text/javascript" src="{{date_picker_js_url}}"></script>
+	
+	<script type="text/javascript">
+	
+		$(function() {
+			
+			$('#id_start_picker').datepicker();
+			$('#id_end_picker').datepicker();
+			
+		});
+	</script>
+{% endblock %}

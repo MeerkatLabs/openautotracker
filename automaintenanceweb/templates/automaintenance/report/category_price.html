@@ -1,0 +1,43 @@
+{% extends "automaintenance/report.html" %}
+
+{% load staticfiles %}
+
+{% block report_type %}
+Category vs. Price
+{%endblock%}
+
+{% block extrascript %}
+	
+	<script type="text/javascript" src="{% static "js/jquery.flot.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/jquery.flot.pie.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/bootstrap-datepicker.js" %}"></script>
+	
+	<script type="text/javascript">
+	
+		$(function() {
+	
+			{% if maintenance_list %}
+				var data = [];
+				{% for key, value in categories.items %}
+				data[{{forloop.counter0}}] = {
+					label: "{{key}}",
+					data: {{value}}
+				}
+			{% endfor %}
+
+				$.plot("#placeholder", data, {
+				    series: {
+				        pie: {
+				            show: true
+				        }
+				    }
+				});
+			{% endif %}
+			
+			$('#start_date_picker').datepicker();
+			$('#end_date_picker').datepicker();
+		});
+	</script>
+
+{% endblock %}
+					

@@ -1,0 +1,48 @@
+{% extends "automaintenance/base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+	<h1>{{trip.name}} 
+		<small>
+			{{trip.start|date:"N d 'y"}}
+			{% if trip.end %}
+			 - {{trip.end|date:"N d 'y"}}
+			{% endif %}
+		</small>
+	</h1>
+</div>
+
+<div class="row">
+	<div class="span6">
+		<dl class="dl-horizontal">
+			<dt>
+				Car:
+			</dt>
+			<dd>
+				{{trip.car}}
+			</dd>
+			<dt>
+				Total Price:
+			</dt>
+			<dd>
+				{{car.get_currency_display}}{{total_price|default:0.0|floatformat:2}}
+			</dd>
+			<dt>
+				Total Mileage:
+			</dt>
+			<dd>
+				{{total_mileage|default:0.0}} {{car.get_mileage_unit_display|lower}}
+			</dd>
+		</dl>
+	</div>
+	
+	<div class="span2 offset4">
+		<a class="btn" href="{% url 'auto_maintenance_edit_trip' trip.car.slug trip.slug %}">Edit</a>
+		<a class="btn btn-danger" href="{% url 'auto_maintenance_delete_trip' trip.car.slug trip.slug %}">Delete</a>
+	</div>
+</div>
+  
+{% include "automaintenance/maintenance_list_include.html" %}
+
+{% endblock %}

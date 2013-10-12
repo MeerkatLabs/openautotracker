@@ -1,0 +1,138 @@
+{% extends "automaintenance/base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+	<h1>{{car.name}} <small>{{car.car_type}}</small></h1>
+</div>
+
+
+<div class="row">
+	<div class="span6">
+		<dl class="dl-horizontal">
+			<dt>
+				City Rate:
+			</dt>
+			<dd>
+				{{car.city_rate}} {{car.get_distance_per_fuel}}
+			</dd>
+			<dt>
+				Highway Rate:
+			</dt>
+			<dd>
+				{{car.highway_rate}} {{car.get_distance_per_fuel}}
+			</dd>
+			<dt>
+				Total Cost:
+			</dt>
+			<dd>
+				{{car.get_currency_display}}{{total_cost|default:0.0|floatformat:2}}
+			</dd>
+			<dt>Cost Year To Date:</dt>
+			<dd>
+				{{car.get_currency_display}}{{ytd_cost|default:0.0|floatformat:2}}
+			</dd>
+            <dt>Mileage Year to Date:</dt>
+            <dd>
+                {{ ytd_mileage|default:0.0|floatformat:1 }}
+            </dd>
+            <dt>
+                YTD Cost per Mile:
+            </dt>
+            <dd>
+                {{ car.get_currency_display }}{{ ytd_cost_per_mile|default:0.0|floatformat:3 }}
+            </dd>
+			<dt>
+				Last Oil Change:
+			</dt>
+			<dd>
+				{% if has_last_oil_change %}{{last_oil_change.date}}{%else %}Unknown{% endif %}
+			</dd>
+			<dt>
+				Last Fill Up:
+			</dt>
+			<dd>
+				{% if has_last_gas_purchase %}{{last_gas_purchase.date}}{%else %}Unknown{% endif %}
+			</dd>
+		</dl>
+	</div>
+
+	<div class="span5">
+
+		<ul class="nav nav-tabs" id="myTab">
+			<li class="active">
+				<a href="#maintenance">Maintenance</a>
+			</li>
+			{% if trip_list %}
+			<li>
+				<a href="#trips">Trips</a>
+			</li>
+			{% endif %}
+			<li>
+				<a href="#reports">Reports</a>
+			</li>
+            <li>
+                <a href="#commands">Commands</a>
+            </li>
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane" id="commands">
+				<ul class="nav nav-tabs nav-stacked">
+					<li>
+						<a href="{% url 'auto_maintenance_create_trip' car.slug %}">Create Trip</a>
+					</li>
+					<li>
+						<a href="{% url 'auto_maintenance_edit_car' car.slug %}">Edit Car</a>
+					</li>
+				</ul>
+			</div>
+			<div class="tab-pane active" id="maintenance">
+				<ul class="nav nav-tabs nav-stacked">
+					<li>
+						<a href="{% url 'auto_maintenance_create_gas_maintenance' car.slug %}">Add Gasoline Purchase</a>
+					</li>
+					<li>
+						<a href="{% url 'auto_maintenance_create_scheduled_maintenance' car.slug %}">Add Scheduled Maintenance</a>
+					</li>
+					<li>
+						<a href="{% url 'auto_maintenance_create_oil_change' car.slug %}">Add Oil Change</a>
+					</li>
+                    <li>
+                        <a href="{% url 'auto_maintenance_create_payment' car.slug %}">Add Payment</a>
+                    </li>
+				</ul>
+			</div>
+			{% if trip_list %}
+			<div class="tab-pane" id="trips">
+				<ul class="nav nav-tabs nav-stacked">
+					{% for trip in trip_list %}
+					<li>
+						<a href="{{ trip.get_absolute_url }}">{{trip}}</a>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+			{% endif %}
+			<div class="tab-pane" id="reports">
+				<ul class="nav nav-tabs nav-stacked">
+				{% include "automaintenance/report/report_list_include.html" %}
+				</ul>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+{% include "automaintenance/maintenance_list_include.html" %}
+
+{% endblock %}
+
+{% block extrascript %}
+<script>
+$('#myTab a').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+});
+</script>
+{% endblock %}

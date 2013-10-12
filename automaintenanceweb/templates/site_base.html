@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+{% load staticfiles %}
+<html>
+	<head>
+		<title>{%block title %}Auto Maintenance{% endblock %}</title>
+
+		<link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
+
+		{% block extrahead %}
+		{% endblock %}
+
+	</head>
+
+	<body>
+		
+		<div class="container">
+
+		<div class="navbar">
+			<div class="navbar-inner">
+				<a class="brand" href="{% url 'auto_maintenance_car_list' %}">{% block brand %}Automaintenance{% endblock %}</a>
+
+				{% if user.is_authenticated %}
+				<ul class="nav" role="navigation">
+					<li class="dropdown">
+						<a id="car_drop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Cars <b class="caret"></b></a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="car_drop">
+							{% for car in car_list %}
+							<li>
+								<a href="{{ car.get_absolute_url }}">{{ car }}</a>
+							</li>
+							{% endfor %}
+							<li role="presentation" class="divider"></li>
+							<li role="presentation">
+								<a role="menuitem" tabindex="-1" href="{% url 'auto_maintenance_add_car' %}">Add Car</a>
+							</li>
+						</ul>
+					</li>
+					
+					{% block submenus %}
+					{% endblock %}
+
+				</ul>
+				{% endif %}
+
+				{% if user.is_authenticated %}
+				<ul class="nav pull-right">
+					<li id="fat-menu" class="dropdown">
+						<a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                            {% if user.first_name %}{{ user.first_name }}{% else %}{{user.username}}{% endif %}
+                            <b class="caret"></b>
+                        </a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+							<li role="presentation">
+								<a role="menuitem" tabindex="-1" href="{% url 'account_settings' %}">Edit Profile</a>
+							</li>
+							{% if user.is_staff %}
+							<li role="presentation" class="divider"></li>
+							<li role="presentation">
+								<a role="menuitem" tabindex="-1" href="/admin/">Admin</a>
+							</li>
+							{% endif %}
+							<li role="presentation" class="divider"></li>
+							<li role="presentation">
+								<a role="menuitem" tabindex="-1" href="{% url 'account_logout' %}">Logout</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				{% else %}
+				<ul class="nav pull-right">
+					<li>
+						<a href="{% url 'account_login' %}">Login</a>
+					</li>
+				</ul>
+				{% endif %}
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="span12">
+				{% block content %}
+                       {% block body %}
+                       {% endblock %}
+				{% endblock %}
+			</div>
+		</div>
+
+        <hr />
+
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2013 Meerkat Labs LLC.</p>
+                <p>Car Tracker is released under AGPL.  See <a href="{%  url 'license_list' %}">Licenses</a> for more information.</p>
+            </div>
+        </footer>
+		
+	</div>
+
+		<script src="{% static "js/jquery.js" %}"></script>
+		<script src="{% static "js/bootstrap.min.js" %}"></script>
+		
+		{% block extrascript %}
+		{% endblock %}
+
+	</body>
+</html>
