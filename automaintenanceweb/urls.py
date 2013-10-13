@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
-from automaintenanceweb.openautotracker.views import LandingPage
+from automaintenanceweb.openautotracker.views import LandingPage, PrivacyPage
+from automaintenanceweb.openautotracker.views import ChangeLogPage, TermsOfServicePage
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -26,5 +27,8 @@ urlpatterns = patterns('',
     url(r'^account/', include('account.urls')),
 
     url(r'^$', LandingPage.as_view(), name='landing'),
+    url(r'^privacy/$', PrivacyPage.as_view(), name='privacy'),
+    url(r'^changelog/$', ChangeLogPage.as_view(), name='changelog'),
+    url(r'^terms/$', TermsOfServicePage.as_view(), name='termsofservice'),
 
 )

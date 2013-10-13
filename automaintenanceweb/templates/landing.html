@@ -2,28 +2,45 @@
 
 {% block body %}
 
-    <h1>Welcome to Open Auto Tracker</h1>
+    <div class="hero-unit">
+        <h1>Open Auto Tracker</h1>
 
-    <h2>Get Started</h2>
-    <p>
-        <a href="{%  url 'account_signup' %}">Create a new account</a>, or sign in with your Google+ account information.
-        Already have an account, <a href="{% url 'account_login' %}">sign in here</a>.
-    </p>
+        <p>An open source car maintenance tracker.</p>
+        <p>
+            <a class="btn btn-large btn-primary" href="{% url 'account_signup' %}">Sign Up</a>
+            <a class="btn btn-large btn-success" href="{% url 'account_login' %}">Log In</a>
+        </p>
 
-    <h2>What we do?</h2>
-    <p>
-        Collect and store all car maintenance, driving patterns, and trips made
-        with each of your vehicles.  This allows you to have up-to-date records
-        on any changes that your car is going through.  It also shows you how
-        much you are spending on your car in order to make car maintenance
-        decisions in the future.
-    </p>
+    </div>
 
-    <h2>Why?</h2>
-    <p>
-        Maintaining records on your car will help you to determine the maintenance
-        needs of your cars in the future.  It will also help you to see fuel
-        patterns and give owners an insight into total cost of ownership.
-    </p>
+    <div class="row">
+        <div class="span4 offset1">
+            <h4>What we do</h4>
+            <p>
+                Collect and store your maintenance records for each of your
+                vehicles allowing you to keep your records in one place.
+            </p>
+        </div>
+
+        <div class="span4 offset1">
+            <h4>Why</h4>
+            <p>
+                Maintaining records on your car provides insight on scheduled
+                maintenance needs, driving patterns, and your usage.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span10 offset1">
+            <h4>What's next</h4>
+            <p>
+                This software is open-source and requires participation from developers and
+                users to improve upon the functionality.  In order to help, start using the
+                software and provide feedback on the features that are missing or need to be
+                improved upon.
+            </p>
+        </div>
+    </div>
 
 {% endblock %}

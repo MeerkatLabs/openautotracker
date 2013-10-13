@@ -16,3 +16,15 @@ class LandingPage(TemplateView):
             return HttpResponseRedirect(reverse('auto_maintenance_car_list'))
 
         return super(LandingPage, self).get(request, *args, **kwargs)
+
+
+class PrivacyPage(TemplateView):
+    template_name = "privacy.html"
+
+
+class ChangeLogPage(TemplateView):
+    template_name = "changelog.html"
+
+
+class TermsOfServicePage(TemplateView):
+    template_name = "termsofservice.html"
